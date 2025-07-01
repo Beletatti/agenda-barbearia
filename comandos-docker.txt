@@ -5,12 +5,12 @@ docker network create barbearia-network
 docker run --name barbeariadb -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=barbearia --network barbearia-network postgres:16.3
 
 #Rodar Pgadmin4
-docker run --name barbearia -p 15432:80 -e PGADMIN_DEFAULT_EMAIL=barbearia@admin.com -e PGADMIN_DEFAULT_PASSWORD=barbearia1 --network barbearia-network dpage/pgadmin4:8.9 :8.9
+docker run --name barbearia -p 15432:80 -e PGADMIN_DEFAULT_EMAIL=barbearia@admin.com -e PGADMIN_DEFAULT_PASSWORD=barbearia1 --network barbearia-network dpage/pgadmin4:8.9
 
 Após logar no pgadmin4(email: barbearia@admin.com - senha: barbearia1), fazer os seguintes steps:
 
 - Botão direito na aba servers > Register > Server
-- Em general, colocar o nome do banco no docker (barbeariadb)
+- Em General, colocar o nome do banco no docker (barbeariadb)
 - Em Connection, referencia o nome com o mesmo nome do banco (barbeariadb)
 - Na porta, coloque a porta do container do banco (5432)
 - Maintence database: barbearia
