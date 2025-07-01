@@ -1,0 +1,47 @@
+Steps para criar as tabelas no PostgreSQL:
+Na arvore de servidores, siga até a barbearia (Servers > barbeariadb > Databases > barbearia). Logo após selecionar a baerbearia, vá em Tools > Query Tool
+
+#barbeiros:
+
+CREATE TABLE barbeiros (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(), -- ID único para cada barbeiro
+    nome VARCHAR(100) NOT NULL,
+    especialidade VARCHAR(100), -- Ex: "Corte Clássico", "Barba", "Coloração"
+    telefone VARCHAR(20),
+    email VARCHAR(100) UNIQUE,
+    data_contratacao DATE NOT NULL DEFAULT CURRENT_DATE,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE -- Para "desativar" um barbeiro sem apagar o histórico
+);
+
+#clientes:
+
+CREATE TABLE clientes (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20) NOT NULL UNIQUE, -- Telefone é um bom identificador único para login/contato
+    email VARCHAR(100) UNIQUE,
+    data_nascimento DATE,
+    data_cadastro TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW() -- Guarda data e hora do cadastro
+);
+
+#servicos:
+
+CREATE TABLE servicos (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    nome VARCHAR(100) NOT NULL UNIQUE, -- Ex: "Corte de Cabelo", "Barba Terapia", "Pezinho"
+    descricao TEXT,
+    preco NUMERIC(10, 2) NOT NULL, -- Preço com duas casas decimais
+    duracao_estimada_min INT NOT NULL -- Duração em minutos, essencial para o agendamento
+);
+
+CREATE TABLE agendamentos (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id_cliente UUID NOT NULL REFERENCES clientes(id),
+    id_barbeiro UUID NOT NULL REFERENCES barbeiros(id),
+    id_servico UUID NOT NULL REFERENCES servicos(id),
+    data_hora_inicio TIMESTAMP WITH TIME ZONE NOT NULL, -- Data e hora exatas do início do serviço
+    data_hora_fim TIMESTAMP WITH TIME ZONE NOT NULL, -- Calculado a partir da duração do serviço
+    status VARCHAR(20) NOT NULL DEFAULT 'AGENDADO', -- Ex: 'AGENDADO', 'CONCLUIDO', 'CANCELADO'
+    observacoes TEXT,
+    data_criacao TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
