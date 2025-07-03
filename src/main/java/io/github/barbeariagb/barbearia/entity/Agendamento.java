@@ -23,8 +23,9 @@ import java.util.UUID;
 public class Agendamento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_agendamento")
+    private Long id;
 
     // --- Relacionamentos ---
 
@@ -64,7 +65,7 @@ public class Agendamento {
     // Usar um Enum é mais seguro e limpo do que uma String.
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20, nullable = false)
-    private StatusAgendamento status = StatusAgendamento.AGENDADO;
+    private StatusAgendamento status;
 
     // Mapeia para: observacoes TEXT
     @Lob

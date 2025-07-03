@@ -18,8 +18,9 @@ import java.util.UUID;
 public class Servico {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_servico")
+    private Long id;
 
     // Mapeia para: nome VARCHAR(100) NOT NULL UNIQUE
     @Column(name = "nome", length = 100, nullable = false, unique = true)

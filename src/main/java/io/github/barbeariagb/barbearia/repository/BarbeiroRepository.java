@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface BarbeiroRepository extends JpaRepository<Barbeiro, UUID> {
+public interface BarbeiroRepository extends JpaRepository<Barbeiro, Long> {
 }

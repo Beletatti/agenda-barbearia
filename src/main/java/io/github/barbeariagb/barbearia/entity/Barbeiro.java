@@ -18,8 +18,9 @@ import java.util.UUID;
 public class Barbeiro {
 
     @Id // Marca este campo como chave primária
-    @GeneratedValue(strategy = GenerationType.AUTO) // Gera o valor do ID automaticamente
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_barbeiro")// Gera o valor do ID automaticamente
+    private Long id;
 
     @Column(name = "nome", length = 100, nullable = false) // Mapeia para a coluna nome
     private String name;
