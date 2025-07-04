@@ -18,8 +18,9 @@ import java.util.UUID;
 public class Servico {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_servico")
+    private Long id;
 
     // Mapeia para: nome VARCHAR(100) NOT NULL UNIQUE
     @Column(name = "nome", length = 100, nullable = false, unique = true)
@@ -38,5 +39,43 @@ public class Servico {
     @Column(name = "duracao_estimada_min", nullable = false)
     private Integer duracaoEstimadaMin;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public Integer getDuracaoEstimadaMin() {
+        return duracaoEstimadaMin;
+    }
+
+    public void setDuracaoEstimadaMin(Integer duracaoEstimadaMin) {
+        this.duracaoEstimadaMin = duracaoEstimadaMin;
+    }
 }
